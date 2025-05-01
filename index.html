@@ -46,25 +46,77 @@
     </script>
   </head>
   <body class="bg-slate-50 flex">
-    <nav id="navbar" class="w-1/4 h-screen bg-white rounded-2xl p-5 mx-5 my-10">
-      <div id="mobile-menu" class="hidden">
+    <nav
+      id="navbar"
+      class="w-72 bg-white rounded-2xl p-5 mx-5 my-10 shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]"
+    >
+      <div id="mobile-menu" class="flex w-4/5 p-5 m-5 shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] sm:hidden">
         <img class="w-6 h-6" src="./assets/img/menu.svg" alt="hamburgerMeno" />
+        <p>کوئرا لیست</p>
       </div>
       <div id="profile" class="m-5">
-        <div id="profile-pic" class="grid grid-cols-3 grid-rows-2"><img src="./assets/img/person-img.svg" alt="profile picture" class="col-span-1 row-span-2"/>
-          <h3 class="font[Vazirmatn] font-extrabold text-lg col-span-2 row-span-1">سلام، عفت</h3>
-          <p class="font[Markazi] font-semibold text-base text-neutral-400 col-span-2 row-span-1">امروز، 11 شهریور 1404</p>
+        <div id="profile-pic" class="grid grid-cols-3 grid-rows-2">
+          <img
+            src="./assets/img/person-img.svg"
+            alt="profile picture"
+            class="col-span-1 row-span-2 w-15 h-15"
+          />
+          <h3
+            class="font[Vazirmatn] font-extrabold text-lg col-span-2 row-span-1"
+          >
+            سلام، عفت
+          </h3>
+          <p
+            class="font[Markazi] font-semibold text-xs text-neutral-400 col-span-2 row-span-1"
+          >
+            امروز، 11 شهریور 1404
+          </p>
         </div>
       </div>
-      <div id="desktop-menu" class="sm:hidden">
+      <div id="desktop-menu" class="flex flex-col">
         <ul>
-          <li>خانه</li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>
+            <div id="menu-home" class="flex">
+              <img src="./assets/img/home-2.svg" alt="home icon" />
+              <p>خانه</p>
+            </div>
+          </li>
+          <li>
+            <div id="menu-tasks" class="flex">
+              <img src="./assets/img/task-square.svg" alt="tasks icon" />
+              <p>تسک ها</p>
+            </div>
+          </li>
+          <li>
+            <div id="menu-calendar" class="flex">
+              <img src="./assets/img/calendar.svg" alt="calendar icon" />
+              <p>تقویم</p>
+            </div>
+          </li>
+          <li>
+            <div id="menu-reports" class="flex">
+              <img src="./assets/img/arrange-square-2.svg" alt="reports icon" />
+              <p>گزارشات</p>
+            </div>
+          </li>
+          <li>
+            <div id="menu-settings" class="flex">
+              <img src="./assets/img/setting.svg" alt="setting icon" />
+              <p>تنظیمات</p>
+            </div>
+          </li>
+          <li>
+            <div id="menu-support" class="flex">
+              <img src="./assets/img/24-support.svg" alt="support icon" />
+              <p>پشتیبانی</p>
+            </div>
+          </li>
+          <li>
+            <div id="menu-profile" class="flex">
+              <img src="./assets/img/profile.svg" alt="profile icon" />
+              <p>پروفایل</p>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
