@@ -45,49 +45,45 @@
       };
     </script>
   </head>
-  <body>
-    <div class="grid grid-cols-3 auto-rows-auto justify-center">
-      <header class="row-span-1 col-span-3 sm:hidden">
-        <nav
-          class="grid justify-center items-center h-12 px-4 grid-cols-3 grid-rows-1 gap-2"
-        >
-          <img
-            class="w-6 h-6"
-            src="./assets/img/menu.svg"
-            alt="hamburgerMeno"
-          />
-          <h2 class="font-bold text-center">کوئرا لیست</h2>
-        </nav>
-      </header>
-      <aside class="row-span-1 col-span-1">
-        <div id="desktop-menu">
-          <ul>
-            <li>خانه</li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
+  <body class="bg-slate-50 flex">
+    <nav id="navbar" class="w-1/4 h-screen bg-white rounded-2xl p-5 mx-5 my-10">
+      <div id="mobile-menu" class="hidden">
+        <img class="w-6 h-6" src="./assets/img/menu.svg" alt="hamburgerMeno" />
+      </div>
+      <div id="profile" class="m-5">
+        <div id="profile-pic" class="grid grid-cols-3 grid-rows-2"><img src="./assets/img/person-img.svg" alt="profile picture" class="col-span-1 row-span-2"/>
+          <h3 class="font[Vazirmatn] font-extrabold text-lg col-span-2 row-span-1">سلام، عفت</h3>
+          <p class="font[Markazi] font-semibold text-base text-neutral-400 col-span-2 row-span-1">امروز، 11 شهریور 1404</p>
         </div>
-      </aside>
-      <main class="row-span-1 col-span-2">
-        <h2 class="font-extrabold text-light-black-text">تسک های امروز</h2>
-        <h3 class="text-xs text-light-gray-text">تسکی برای امروز نداری!</h3>
-        <div
-          class="border rounded-[10px] border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-full"
-        >
-          <p class="font-semibold text-light-primary flex gap-4 items-center">
-            <span class="text-2xl">+</span>افزودن وظیفه جدید
-          </p>
-        </div>
-        <img
-          class="w-[273px] h-[273px] mx-auto"
-          src="./assets/img/nothing-task.svg"
-          alt="write a task"
-        />
-      </main>
-    </div>
+      </div>
+      <div id="desktop-menu" class="sm:hidden">
+        <ul>
+          <li>خانه</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="w-1/2">
+      <h2 class="font-extrabold text-light-black-text">تسک های امروز</h2>
+      <h3 class="text-xs text-light-gray-text">تسکی برای امروز نداری!</h3>
+      <div
+        class="border rounded-[10px] border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-full"
+      >
+        <p class="font-semibold text-light-primary flex gap-4 items-center">
+          <span class="text-2xl">+</span>افزودن وظیفه جدید
+        </p>
+      </div>
+      <img
+        class="w-[273px] h-[273px] mx-auto"
+        src="./assets/img/nothing-task.svg"
+        alt="write a task"
+      />
+    </main>
   </body>
 </html>
