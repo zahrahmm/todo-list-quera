@@ -7,22 +7,6 @@
     <meta name="description" content="دومین پروژه کوئرا بوت کمپ" />
     <title>پروژه فاز دوم</title>
     <link rel="stylesheet" href="./style.css" />
-    <style>
-      @font-face {
-        font-family: "Markazi";
-        src: url("./assets/fonts/Markazi_Text/MarkaziText-VariableFont_wght.ttf");
-        font-weight: 100 900;
-        font-stretch: 75% 125%;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: "Vazirmatn";
-        src: url("./assets/fonts/Vazirmatn/Vazirmatn-VariableFont_wght.ttf");
-        font-weight: 100 900;
-        font-stretch: 75% 125%;
-        font-style: normal;
-      }
-    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -45,9 +29,9 @@
       };
     </script>
   </head>
-  <body>
-    <div class="grid grid-cols-3 auto-rows-auto justify-center">
-      <header class="row-span-1 col-span-3 sm:hidden">
+  <body class="bg-slate-50">
+    <div class="sm:flex">
+      <header class="sm:hidden bg-white rounded-lg m-5 shadow-sm">
         <nav
           class="grid justify-center items-center h-12 px-4 grid-cols-3 grid-rows-1 gap-2"
         >
@@ -56,10 +40,10 @@
             src="./assets/img/menu.svg"
             alt="hamburgerMeno"
           />
-          <h2 class="font-bold text-center">کوئرا لیست</h2>
+          <h2 class="Markazi font-bold text-center">کوئرا لیست</h2>
         </nav>
       </header>
-      <aside class="row-span-1 col-span-1">
+      <aside class="w-1/4 hidden sm:block">
         <div id="desktop-menu">
           <ul>
             <li>خانه</li>
@@ -72,18 +56,34 @@
           </ul>
         </div>
       </aside>
-      <main class="row-span-1 col-span-2">
-        <h2 class="font-extrabold text-light-black-text">تسک های امروز</h2>
-        <h3 class="text-xs text-light-gray-text">تسکی برای امروز نداری!</h3>
-        <div
-          class="border rounded-[10px] border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-full"
-        >
-          <p class="font-semibold text-light-primary flex gap-4 items-center">
-            <span class="text-2xl">+</span>افزودن وظیفه جدید
-          </p>
+      <main class="w-full mt-6 sm:mt-10">
+        <div id="profile" class="mr-5 flex gap-2 sm:hidden">
+          <img src="./assets/img/person-img.svg" alt="profile picture" />
+          <div>
+            <h3 class="Vazirmatn font-extrabold text-lg">سلام، عفت</h3>
+            <p class="BYekan font-semibold text-sm text-neutral-400">
+              امروز، سه شنبه، 11 شهریور 1404
+            </p>
+          </div>
         </div>
+        <div class="border-t m-5 sm:hidden"></div>
+        <h2
+          class="Vazirmatn font-extrabold text-light-black-text pb-3 mr-5 sm:text-xl"
+        >
+          تسک های امروز
+        </h2>
+        <h3
+          class="Vazirmatn text-xs text-light-gray-text pb-4 mr-5 sm:font-extrabold sm:text-sm"
+        >
+          تسکی برای امروز نداری!
+        </h3>
+        <input
+          type="text"
+          class="Vazirmatn border rounded-[10px] border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-11/12 mr-4 placeholder:font-semibold placeholder:text-light-primary placeholder:sm:font-bold placeholder:text-lg"
+          placeholder="+ افزودن وظیفه جدید"
+        />
         <img
-          class="w-[273px] h-[273px] mx-auto"
+          class="w-[273px] h-[273px] mx-auto sm:w-[371px] sm:h-[307px] sm:mt-3"
           src="./assets/img/nothing-task.svg"
           alt="write a task"
         />

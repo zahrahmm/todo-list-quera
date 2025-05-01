@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "Markazi";
+  src: url("./assets/fonts/Markazi_Text/MarkaziText-VariableFont_wght.ttf");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("./assets/fonts/Vazirmatn/Vazirmatn-VariableFont_wght.ttf");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+@font-face {
+  font-family: "BYekan";
+  src: url("./assets/fonts/Byekan/BYEKAN.woff2") format("woff2"),
+    url("./assets/fonts/Byekan/BYEKAN.woff") format("woff"),
+    url("./assets/fonts/Byekan/BYEKAN.ttf") format("truetype"),
+    url("./assets/fonts/Byekan/BYEKAN.otf") format("opentype"),
+    url("./assets/fonts/Byekan/BYEKAN.eot") format("embedded-opentype");
+}
+
+.Markazi {
+  font-family: "Markazi";
+}
+
+.Vazirmatn {
+  font-family: "Vazirmatn";
+}
+
+.BYekan {
+  font-family: "BYekan";
+}
