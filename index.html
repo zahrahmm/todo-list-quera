@@ -31,9 +31,149 @@
   </head>
   <body class="bg-slate-50">
     <div class="sm:flex">
-      <header class="sm:hidden bg-white rounded-lg m-5 shadow-sm">
-        <nav
-          class="grid justify-center items-center h-12 px-4 grid-cols-3 grid-rows-1 gap-2"
+      <div
+        id="mobile-menu"
+        class="hidden w-72 absolute z-10 top-0 bg-white p-0 m-0 shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]"
+      >
+        <div class="flex p-3 mb-8 justify-between">
+          <p class="w-2/4 font-bold">کوئرا لیست</p>
+          <img class="" src="./assets/img/close.svg" alt="close button" />
+        </div>
+        <ul>
+          <li>
+            <div
+              id="menu-home"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img class="mx-3" src="./assets/img/home-2.svg" alt="home icon" />
+              <a class="px-2 Vazirmatn font-semibold">خانه</a>
+            </div>
+          </li>
+          <li>
+            <div
+              id="menu-tasks"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img
+                class="mx-3"
+                src="./assets/img/task-square.svg"
+                alt="tasks icon"
+              />
+              <a class="px-2 Vazirmatn font-semibold">تسک ها</a>
+            </div>
+          </li>
+          <li>
+            <div
+              id="menu-calendar"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img
+                class="mx-3"
+                src="./assets/img/calendar.svg"
+                alt="calendar icon"
+              />
+              <a class="px-2 Vazirmatn font-semibold">تقویم</a>
+            </div>
+          </li>
+          <li>
+            <div
+              id="menu-reports"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img
+                class="mx-3"
+                src="./assets/img/arrange-square-2.svg"
+                alt="reports icon"
+              />
+              <a class="px-2 Markazi font-semibold">گزارشات</a>
+            </div>
+          </li>
+          <li>
+            <div
+              id="menu-settings"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img
+                class="mx-3"
+                src="./assets/img/setting.svg"
+                alt="setting icon"
+              />
+              <a class="px-2 Markazi font-semibold">تنظیمات</a>
+            </div>
+          </li>
+          <li>
+            <div
+              id="menu-support"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img
+                class="mx-3"
+                src="./assets/img/24-support.svg"
+                alt="support icon"
+              />
+              <a class="px-2 Markazi font-semibold">پشتیبانی</a>
+            </div>
+          </li>
+          <li>
+            <div
+              id="menu-profile"
+              class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+            >
+              <img
+                class="mx-3"
+                src="./assets/img/profile.svg"
+                alt="profile icon"
+              />
+              <a class="px-2 Markazi font-semibold">پروفایل</a>
+            </div>
+          </li>
+        </ul>
+        <div id="footer" class="mt-6 p-5">
+          <div
+            id="light-dark"
+            class="bg-[#F7F7F7] rounded-lg flex p-1 justify-between mb-8"
+          >
+            <div
+              id="light"
+              class="flex gap-2 rounded-lg bg-white justify-around py-2 px-4 items-center w-1/2 self-center"
+            >
+              <img src="./assets/img/light-switch.svg" alt="light switch" />
+              <a
+                class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+              >
+                روشن
+              </a>
+            </div>
+            <div
+              id="dark"
+              class="flex gap-2 rounded-lg bg-[#F7F7F7] justify-around py-2 px-4 items-center w-1/2 self-center"
+            >
+              <img src="./assets/img/dark-switch.svg" alt="dark switch" />
+              <a
+                class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+              >
+                تاریک
+              </a>
+            </div>
+          </div>
+          <img
+            src="./assets/img/line.svg"
+            alt="line"
+            class="m-auto w-full mb-8"
+          />
+          <div class="flex mb-4">
+            <img src="./assets/img/logout.svg" alt="logout icon" />
+            <a class="px-2 Markazi font-semibold">خروج</a>
+          </div>
+        </div>
+      </div>
+      <nav
+        id="navbar"
+        class="w-68 bg-white p-1 m-5 shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] sm:min-w-60 rounded-lg sm:rounded-2xl"
+      >
+        <div
+          id="mobile-bar"
+          class="grid justify-center items-center h-12 px-4 grid-cols-3 grid-rows-1 gap-2 sm:hidden"
         >
           <img
             class="w-6 h-6"
@@ -41,21 +181,162 @@
             alt="hamburgerMeno"
           />
           <h2 class="Markazi font-bold text-center">کوئرا لیست</h2>
-        </nav>
-      </header>
-      <aside class="w-1/4 hidden sm:block">
-        <div id="desktop-menu">
-          <ul>
-            <li>خانه</li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
         </div>
-      </aside>
+
+        <div id="desktop-menu" class="hidden sm:flex flex-col -mt-8">
+          <div id="profile" class="my-10 p-5">
+            <div id="profile-pic" class="grid grid-cols-3 grid-rows-2 gap-2">
+              <img
+                src="./assets/img/person-img.svg"
+                alt="profile picture"
+                class="col-span-1 row-span-2 w-14 h-14"
+              />
+              <h3
+                class="Vazirmatn font-extrabold text-lg col-span-2 row-span-1"
+              >
+                سلام، عفت
+              </h3>
+              <p
+                class="BYekan font-semibold text-xs text-neutral-400 col-span-2 row-span-1"
+              >
+                سه شنبه، 11 شهریور 1404
+              </p>
+            </div>
+          </div>
+          <ul>
+            <li>
+              <div
+                id="menu-home"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/home-2.svg"
+                  alt="home icon"
+                />
+                <a class="px-2 Vazirmatn font-semibold">خانه</a>
+              </div>
+            </li>
+            <li>
+              <div
+                id="menu-tasks"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/task-square.svg"
+                  alt="tasks icon"
+                />
+                <a class="px-2 Vazirmatn font-semibold">تسک ها</a>
+              </div>
+            </li>
+            <li>
+              <div
+                id="menu-calendar"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/calendar.svg"
+                  alt="calendar icon"
+                />
+                <a class="px-2 Vazirmatna font-semibold">تقویم</a>
+              </div>
+            </li>
+            <li>
+              <div
+                id="menu-reports"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/arrange-square-2.svg"
+                  alt="reports icon"
+                />
+                <a class="px-2 Markazi font-semibold">گزارشات</a>
+              </div>
+            </li>
+            <li>
+              <div
+                id="menu-settings"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/setting.svg"
+                  alt="setting icon"
+                />
+                <a class="px-2 Markazi font-semibold">تنظیمات</a>
+              </div>
+            </li>
+            <li>
+              <div
+                id="menu-support"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/24-support.svg"
+                  alt="support icon"
+                />
+                <a class="px-2 Markazi font-semibold">پشتیبانی</a>
+              </div>
+            </li>
+            <li>
+              <div
+                id="menu-profile"
+                class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500"
+              >
+                <img
+                  class="mx-3"
+                  src="./assets/img/profile.svg"
+                  alt="profile icon"
+                />
+                <a class="px-2 Markazi font-semibold">پروفایل</a>
+              </div>
+            </li>
+          </ul>
+          <div id="footer" class="mt-20 p-5">
+            <div
+              id="light-dark"
+              class="bg-[#F7F7F7] rounded-lg flex p-1 justify-between mb-8"
+            >
+              <div
+                id="light"
+                class="flex gap-2 rounded-lg bg-white justify-around py-2 px-4 items-center w-1/2 self-center"
+              >
+                <img src="./assets/img/light-switch.svg" alt="light switch" />
+                <p
+                  class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+                >
+                  روشن
+                </p>
+              </div>
+              <div
+                id="dark"
+                class="flex gap-2 rounded-lg bg-[#F7F7F7] justify-around py-2 px-4 items-center w-1/2 self-center"
+              >
+                <img src="./assets/img/dark-switch.svg" alt="dark switch" />
+                <p
+                  class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+                >
+                  تاریک
+                </p>
+              </div>
+            </div>
+            <img
+              src="./assets/img/line.svg"
+              alt="line"
+              class="m-auto w-full mb-8"
+            />
+            <div class="flex mb-4">
+              <img src="./assets/img/logout.svg" alt="logout icon" />
+              <a class="px-2 Markazi font-semibold">خروج</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       <main class="w-full mt-6 sm:mt-10">
         <div id="profile" class="mr-5 flex gap-2 sm:hidden">
           <img src="./assets/img/person-img.svg" alt="profile picture" />
