@@ -25,7 +25,7 @@
             },
           },
         },
-        Plugins: [],
+        plugins: [],
       };
     </script>
   </head>
@@ -357,11 +357,6 @@
         >
           تسکی برای امروز نداری!
         </h3>
-        <!-- <input
-          type="text"
-          class="Vazirmatn border rounded-[10px] border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-11/12 mr-4 placeholder:font-semibold placeholder:text-light-primary placeholder:sm:font-bold placeholder:text-lg"
-          placeholder="+ افزودن وظیفه جدید"
-        /> -->
         <div
           class="border rounded-xl border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-11/12 mr-4 bg-white"
           id="add-task"
@@ -392,42 +387,48 @@
             id="task-description"
             placeholder="توضیحات"
           ></textarea>
-          <button
-            class="Vazirmatn flex items-center border rounded-md w-fit pt-1 pb-1 pl-2 pr-2 gap-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] font-semibold text-xs sm:text-sm text-[#afaeb2] mt-2"
-            id="tag"
-          >
-            <img
-              class="w-4 h-4 sm:w-5 sm:h-5"
-              src="./assets/img/tag-right.svg"
-              alt="tag-right"
-              id="img-tag"
-            />تگ ها
-          </button>
+          <div class="flex gap-3">
+            <button
+              class="Vazirmatn flex items-center border rounded-md w-fit pt-1 pb-1 pl-2 pr-2 gap-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] font-semibold text-xs sm:text-sm text-[#afaeb2] mt-2"
+              id="tag"
+            >
+              <img
+                class="w-4 h-4 sm:w-5 sm:h-5"
+                src="./assets/img/tag-right.svg"
+                alt="tag-right"
+                id="img-tag"
+              />تگ ها
+            </button>
+            <button id="selected-tag"></button>
+          </div>
           <div
             class="gap-4 mt-5 p-3 border w-fit rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] hidden"
             id="down-middle-up"
           >
             <div
-              class="bg-[#c3fff1] text-[#11a483] rounded-md pt-1 pb-1 pl-2 pr-2"
+              class="bg-[#c3fff1] text-[#11a483] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer"
+              id="down"
             >
               پایین
             </div>
             <div class="w-[1px] bg-[#ebedef]"></div>
             <div
-              class="bg-[#ffefd6] text-[#ffaf37] rounded-md pt-1 pb-1 pl-2 pr-2"
+              class="bg-[#ffefd6] text-[#ffaf37] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer"
+              id="middle"
             >
               متوسط
             </div>
             <div class="w-[1px] bg-[#ebedef]"></div>
             <div
-              class="bg-[#ffe2db] text-[#ff5f37] rounded-md pt-1 pb-1 pl-2 pr-2"
+              class="bg-[#ffe2db] text-[#ff5f37] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer"
+              id="up"
             >
               بالا
             </div>
           </div>
           <div class="border-t mt-5"></div>
           <div class="flex justify-end gap-5 ml-4 mt-4">
-            <button class="rounded-md p-2 bg-[#f5f5f5]">
+            <button class="rounded-md p-2 bg-[#f5f5f5]" id="not-added">
               <img src="./assets/img/close.svg" alt="close" />
             </button>
             <button
@@ -439,29 +440,44 @@
           </div>
         </div>
 
+        <ul id="task-list"></ul>
+
         <div
           class="hidden relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]"
+          id="task-added"
         >
           <div
-            class="absolute top-2 right-0 h-5/6 w-1 rounded-tl-lg rounded-bl-lg"
+            class="absolute top-2 right-0 h-[88%] sm:h-[80%] w-1 rounded-tl-lg rounded-bl-lg"
+            id="navar"
           ></div>
           <img
             src="./assets/img/3noghte.svg"
             alt="3 points"
             class="absolute top-4 left-3"
+            id="points"
           />
-
-          <div class="flex flex-wrap gap-3 items-start">
-            <input type="checkbox" class="mt-2" />
-
-            <div class="min-w-0 flex-1">
-              <h2 class="text-base font-semibold"></h2>
-              <p class="break-words"></p>
+          <div class="flex items-start gap-3 flex-nowrap">
+            <input type="checkbox" class="mt-2 flex-shrink-0" />
+            <div class="min-w-0 flex-1 overflow-hidden">
+              <div class="flex flex-wrap items-center gap-2">
+                <h2
+                  class="text-base font-semibold whitespace-nowrap"
+                  id="task-name-2"
+                ></h2>
+                <div
+                  class="rounded-md px-2 py-1 text-sm whitespace-nowrap"
+                  id="tag-name"
+                ></div>
+              </div>
+              <p
+                class="break-words text-light-gray-text mt-1"
+                id="task-description-2"
+              ></p>
             </div>
-
             <div class="flex-shrink-0 ml-auto mt-4">
               <div
-                class="flex border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2"
+                class="hidden border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2"
+                id="trash-edit"
               >
                 <img src="./assets/img/tabler_trash-x.svg" alt="trash" />
                 <div class="w-[1px] bg-[#ebedef]"></div>
