@@ -364,6 +364,7 @@
         /> -->
         <div
           class="border rounded-xl border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-11/12 mr-4 bg-white"
+          id="add-task"
         >
           <p class="font-semibold text-light-primary flex gap-4 items-center">
             <span class="text-2xl">+</span>افزودن وظیفه جدید
@@ -372,10 +373,12 @@
         <img
           class="w-[273px] h-[273px] mx-auto sm:w-[371px] sm:h-[307px] sm:mt-3"
           src="./assets/img/nothing-task.svg"
-          alt="write a task"
+          alt="empty task"
+          id="empty-task"
         />
         <div
           class="hidden bg-white pt-4 pr-4 pb-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] flex-col"
+          id="task-information"
         >
           <textarea
             class="Vazirmatn placeholder:font-semibold placeholder:text-sm sm:placeholder:font-bold sm:placeholder:text-base resize-none"
@@ -391,15 +394,18 @@
           ></textarea>
           <button
             class="Vazirmatn flex items-center border rounded-md w-fit pt-1 pb-1 pl-2 pr-2 gap-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] font-semibold text-xs sm:text-sm text-[#afaeb2] mt-2"
+            id="tag"
           >
             <img
               class="w-4 h-4 sm:w-5 sm:h-5"
               src="./assets/img/tag-right.svg"
               alt="tag-right"
+              id="img-tag"
             />تگ ها
           </button>
           <div
-            class="flex gap-4 mt-5 p-3 border w-fit rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)]"
+            class="gap-4 mt-5 p-3 border w-fit rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] hidden"
+            id="down-middle-up"
           >
             <div
               class="bg-[#c3fff1] text-[#11a483] rounded-md pt-1 pb-1 pl-2 pr-2"
@@ -426,12 +432,46 @@
             </button>
             <button
               class="BYekan font-semibold text-sm bg-light-primary text-white w-fit pt-2 pb-2 pl-3 pr-3 rounded-md"
+              id="final-add"
             >
               اضافه کردن تسک
             </button>
           </div>
         </div>
+
+        <div
+          class="hidden relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]"
+        >
+          <div
+            class="absolute top-2 right-0 h-5/6 w-1 rounded-tl-lg rounded-bl-lg"
+          ></div>
+          <img
+            src="./assets/img/3noghte.svg"
+            alt="3 points"
+            class="absolute top-4 left-3"
+          />
+
+          <div class="flex flex-wrap gap-3 items-start">
+            <input type="checkbox" class="mt-2" />
+
+            <div class="min-w-0 flex-1">
+              <h2 class="text-base font-semibold"></h2>
+              <p class="break-words"></p>
+            </div>
+
+            <div class="flex-shrink-0 ml-auto mt-4">
+              <div
+                class="flex border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2"
+              >
+                <img src="./assets/img/tabler_trash-x.svg" alt="trash" />
+                <div class="w-[1px] bg-[#ebedef]"></div>
+                <img src="./assets/img/tabler_edit.svg" alt="edit" />
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
+    <script src="./main.js"></script>
   </body>
 </html>
