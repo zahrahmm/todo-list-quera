@@ -29,7 +29,7 @@
       };
     </script>
   </head>
-  <body class="bg-slate-50">
+  <body class="bg-slate-50 dark:bg-slate-500">
     <div class="sm:flex">
       <div
         id="mobile-menu"
@@ -37,7 +37,12 @@
       >
         <div class="flex p-3 mb-8 justify-between">
           <p class="w-2/4 font-bold">کوئرا لیست</p>
-          <img id="close-button" class="cursor-pointer" src="./assets/img/close.svg" alt="close button" />
+          <img
+            id="close-button"
+            class="cursor-pointer"
+            src="./assets/img/close.svg"
+            alt="close button"
+          />
         </div>
 
         <ul>
@@ -140,7 +145,7 @@
             >
               <img src="./assets/img/light-switch.svg" alt="light switch" />
               <a
-                class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+                class="block px-1 pb-1 Markazi font-semibold text-center align-middle cursor-pointer light-mode"
               >
                 روشن
               </a>
@@ -151,7 +156,7 @@
             >
               <img src="./assets/img/dark-switch.svg" alt="dark switch" />
               <a
-                class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+                class="block px-1 pb-1 Markazi font-semibold text-center align-middle cursor-pointer dark-mode"
               >
                 تاریک
               </a>
@@ -308,22 +313,22 @@
                 class="flex gap-2 rounded-lg bg-white justify-around py-2 px-4 items-center w-1/2 self-center"
               >
                 <img src="./assets/img/light-switch.svg" alt="light switch" />
-                <p
-                  class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+                <a
+                  class="block px-1 pb-1 Markazi font-semibold text-center align-middle cursor-pointer light-mode"
                 >
                   روشن
-                </p>
+                </a>
               </div>
               <div
                 id="dark"
                 class="flex gap-2 rounded-lg bg-[#F7F7F7] justify-around py-2 px-4 items-center w-1/2 self-center"
               >
                 <img src="./assets/img/dark-switch.svg" alt="dark switch" />
-                <p
-                  class="block px-1 pb-1 Markazi font-semibold text-center align-middle"
+                <a
+                  class="block px-1 pb-1 Markazi font-semibold text-center align-middle cursor-pointer dark-mode"
                 >
                   تاریک
-                </p>
+                </a>
               </div>
             </div>
             <img

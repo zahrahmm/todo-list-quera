@@ -22,6 +22,8 @@ const mobileMenuCloseButton = document.getElementById("close-button");
 const mobileMenu = document.getElementById("mobile-menu");
 const hamburgerButton = document.getElementById("hamburger-button");
 const taskCountElement = document.getElementById("task-count");
+const light = document.getElementsByClassName("light-mode");
+const dark = document.getElementsByClassName("dark-mode");
 
 let selectedTagValue = null;
 let selectedTagPriority = 0;
@@ -36,6 +38,20 @@ mobileMenuCloseButton.addEventListener("click", () => {
 hamburgerButton.addEventListener("click", () => {
   mobileMenu.style.display = "block";
 });
+
+const darkMode = () => {
+  document.documentElement.classList.add("dark");
+};
+
+dark[0].addEventListener("click", darkMode);
+dark[1].addEventListener("click", darkMode);
+
+const lightMode = () => {
+  document.documentElement.classList.remove("dark");
+};
+
+light[0].addEventListener("click", lightMode);
+light[1].addEventListener("click", lightMode);
 
 function resetForm() {
   taskInformation.style.display = "none";
