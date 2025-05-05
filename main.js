@@ -18,9 +18,20 @@ const taskDescription2 = document.getElementById("task-description-2");
 const taskList = document.getElementById("task-list");
 const selectedTag = document.getElementById("selected-tag");
 const notAdded = document.getElementById("not-added");
+const mobileMenuCloseButton = document.getElementById("close-button");
+const mobileMenu = document.getElementById("mobile-menu");
+const hamburgerButton = document.getElementById("hamburger-button");
 
 let selectedTagValue = null;
 let selectedTagPriority = 0;
+
+mobileMenuCloseButton.addEventListener("click", () => {
+  mobileMenu.style.display = "none";
+});
+
+hamburgerButton.addEventListener("click", () => {
+  mobileMenu.style.display = "block";
+});
 
 function resetForm() {
   taskInformation.style.display = "none";
