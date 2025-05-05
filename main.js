@@ -21,10 +21,13 @@ const notAdded = document.getElementById("not-added");
 const mobileMenuCloseButton = document.getElementById("close-button");
 const mobileMenu = document.getElementById("mobile-menu");
 const hamburgerButton = document.getElementById("hamburger-button");
+const taskCountElement = document.getElementById("task-count");
 
 let selectedTagValue = null;
 let selectedTagPriority = 0;
 let editingIndex = null;
+
+const tasksArray = [];
 
 mobileMenuCloseButton.addEventListener("click", () => {
   mobileMenu.style.display = "none";
@@ -48,6 +51,29 @@ function resetForm() {
   imgTag.src = "./assets/img/tag-right.svg";
   editingIndex = null;
   finalAdd.innerText = "اضافه کردن تسک";
+}
+
+function selectTag(value, bgColor, textColor, grade) {
+  if (selectedTagValue === value) {
+    selectedTag.style.display = "none";
+    selectedTagValue = null;
+    selectedTagPriority = 0;
+    return;
+  }
+
+  navar.style.backgroundColor = textColor;
+  tagName.innerText = value;
+  tagName.style.backgroundColor = bgColor;
+  tagName.style.color = textColor;
+
+  selectedTag.innerText = value;
+  selectedTag.style.backgroundColor = bgColor;
+  selectedTag.style.color = textColor;
+  selectedTag.className = "rounded-md w-fit pt-1 pb-1 pl-2 pr-2 mt-2";
+  selectedTag.style.display = "inline-block";
+
+  selectedTagValue = value;
+  selectedTagPriority = grade;
 }
 
 function createTaskElement(task, index) {
@@ -89,60 +115,12 @@ function createTaskElement(task, index) {
   });
 
   taskElement.querySelector(".edit-task").addEventListener("click", () => {
-    taskInformation.style.display = "flex";
-    emptyTask.style.display = "none";
-    taskAdded.style.display = "none";
-    finalAdd.innerText = "ویرایش تسک";
-
-    taskName.value = name;
-    taskDescription.value = desc;
-    tagName.innerText = tagText;
-    tagName.style.backgroundColor = tagColor;
-    tagName.style.color = tagFontColor;
-    navar.style.backgroundColor = navarColor;
-
-    selectedTagValue = tagText;
-    selectedTagPriority = task.priority;
-
-    selectedTag.innerText = tagText;
-    selectedTag.style.backgroundColor = tagColor;
-    selectedTag.style.color = tagFontColor;
-    selectedTag.className = "rounded-md w-fit pt-1 pb-1 pl-2 pr-2 mt-2";
-    selectedTag.style.display = "inline-block";
-
-    editingIndex = index;
-
+    editTask(index);
     taskElement.style.display = "none";
-    notAdded.style.display = "none";
   });
 
   return taskElement;
 }
-
-function selectTag(value, bgColor, textColor, grade) {
-  if (selectedTagValue === value) {
-    selectedTag.style.display = "none";
-    selectedTagValue = null;
-    selectedTagPriority = 0;
-    return;
-  }
-
-  navar.style.backgroundColor = textColor;
-  tagName.innerText = value;
-  tagName.style.backgroundColor = bgColor;
-  tagName.style.color = textColor;
-
-  selectedTag.innerText = value;
-  selectedTag.style.backgroundColor = bgColor;
-  selectedTag.style.color = textColor;
-  selectedTag.className = "rounded-md w-fit pt-1 pb-1 pl-2 pr-2 mt-2";
-  selectedTag.style.display = "inline-block";
-
-  selectedTagValue = value;
-  selectedTagPriority = grade;
-}
-
-const tasksArray = [];
 
 function handleAddTask() {
   const name = taskName.value.trim();
@@ -189,9 +167,34 @@ function renderTasks() {
 }
 
 function updateTaskCount() {
-  const taskCount = tasksArray.length;
-  const taskCountElement = document.getElementById("task-count");
-  taskCountElement.innerText = `${taskCount} تسک را باید انجام دهید .`;
+  taskCountElement.innerText = `${tasksArray.length} تسک را باید انجام دهید .`;
+}
+
+function editTask(index) {
+  const task = tasksArray[index];
+  taskInformation.style.display = "flex";
+  emptyTask.style.display = "none";
+  taskAdded.style.display = "none";
+  finalAdd.innerText = "ویرایش تسک";
+
+  taskName.value = task.name;
+  taskDescription.value = task.desc;
+  tagName.innerText = task.tagText;
+  tagName.style.backgroundColor = task.tagColor;
+  tagName.style.color = task.tagFontColor;
+  navar.style.backgroundColor = task.navarColor;
+
+  selectedTagValue = task.tagText;
+  selectedTagPriority = task.priority;
+
+  selectedTag.innerText = task.tagText;
+  selectedTag.style.backgroundColor = task.tagColor;
+  selectedTag.style.color = task.tagFontColor;
+  selectedTag.className = "rounded-md w-fit pt-1 pb-1 pl-2 pr-2 mt-2";
+  selectedTag.style.display = "inline-block";
+
+  editingIndex = index;
+  notAdded.style.display = "none";
 }
 
 addTask.addEventListener("click", () => {
