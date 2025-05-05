@@ -21,6 +21,7 @@ const notAdded = document.getElementById("not-added");
 
 let selectedTagValue = null;
 let selectedTagPriority = 0;
+let editingIndex = null;
 
 function resetForm() {
   taskInformation.style.display = "none";
@@ -31,18 +32,16 @@ function resetForm() {
   tagName.style.color = "";
   selectedTag.style.display = "none";
   selectedTagValue = null;
+  selectedTagPriority = 0;
   downMiddleUp.style.display = "none";
   imgTag.src = "./assets/img/tag-right.svg";
+  editingIndex = null;
+  finalAdd.innerText = "اضافه کردن تسک";
 }
 
-function createTaskElement(
-  name,
-  desc,
-  tagText,
-  tagColor,
-  tagFontColor,
-  navarColor
-) {
+function createTaskElement(task, index) {
+  const { name, desc, tagText, tagColor, tagFontColor, navarColor } = task;
+
   const taskElement = document.createElement("li");
   taskElement.className =
     "relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]";
@@ -63,7 +62,7 @@ function createTaskElement(
         <div class="hidden border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2" id="trash-edit">
           <img src="./assets/img/tabler_trash-x.svg" alt="trash" class="cursor-pointer delete-task"/>
           <div class="w-[1px] bg-[#ebedef]"></div>
-          <img src="./assets/img/tabler_edit.svg" alt="edit" />
+          <img src="./assets/img/tabler_edit.svg" alt="edit" class="cursor-pointer edit-task"/>
         </div>
       </div>
     </div>
@@ -76,6 +75,34 @@ function createTaskElement(
     const isHidden =
       trashEdit.style.display === "none" || trashEdit.style.display === "";
     trashEdit.style.display = isHidden ? "flex" : "none";
+  });
+
+  taskElement.querySelector(".edit-task").addEventListener("click", () => {
+    taskInformation.style.display = "flex";
+    emptyTask.style.display = "none";
+    taskAdded.style.display = "none";
+    finalAdd.innerText = "ویرایش تسک";
+
+    taskName.value = name;
+    taskDescription.value = desc;
+    tagName.innerText = tagText;
+    tagName.style.backgroundColor = tagColor;
+    tagName.style.color = tagFontColor;
+    navar.style.backgroundColor = navarColor;
+
+    selectedTagValue = tagText;
+    selectedTagPriority = task.priority;
+
+    selectedTag.innerText = tagText;
+    selectedTag.style.backgroundColor = tagColor;
+    selectedTag.style.color = tagFontColor;
+    selectedTag.className = "rounded-md w-fit pt-1 pb-1 pl-2 pr-2 mt-2";
+    selectedTag.style.display = "inline-block";
+
+    editingIndex = index;
+
+    taskElement.style.display = "none";
+    notAdded.style.display = "none";
   });
 
   return taskElement;
@@ -119,7 +146,7 @@ function handleAddTask() {
     return;
   }
 
-  const newTask = {
+  const task = {
     name,
     desc,
     tagText,
@@ -129,28 +156,31 @@ function handleAddTask() {
     priority: selectedTagPriority,
   };
 
-  tasksArray.push(newTask);
+  if (editingIndex !== null) {
+    tasksArray[editingIndex] = task;
+  } else {
+    tasksArray.push(task);
+  }
 
   tasksArray.sort((a, b) => b.priority - a.priority);
 
   renderTasks();
-
   resetForm();
 }
+
 function renderTasks() {
   taskList.innerHTML = "";
-
-  tasksArray.forEach((task) => {
-    const li = createTaskElement(
-      task.name,
-      task.desc,
-      task.tagText,
-      task.tagColor,
-      task.tagFontColor,
-      task.navarColor
-    );
+  tasksArray.forEach((task, index) => {
+    const li = createTaskElement(task, index);
     taskList.appendChild(li);
   });
+  updateTaskCount();
+}
+
+function updateTaskCount() {
+  const taskCount = tasksArray.length;
+  const taskCountElement = document.getElementById("task-count");
+  taskCountElement.innerText = `${taskCount} تسک را باید انجام دهید .`;
 }
 
 addTask.addEventListener("click", () => {
@@ -178,7 +208,7 @@ up.addEventListener("click", () => {
 });
 
 finalAdd.addEventListener("click", handleAddTask);
-
 notAdded.addEventListener("click", () => {
   taskInformation.style.display = "none";
+  resetForm();
 });
