@@ -16,11 +16,16 @@ const taskDescription = document.getElementById("task-description");
 const taskName2 = document.getElementById("task-name-2");
 const taskDescription2 = document.getElementById("task-description-2");
 const taskList = document.getElementById("task-list");
+const taskDoneList = document.getElementById("task-done-list");
+const taskDoneListBanner = document.getElementById("task-done-list-banner");
+const tasksBanner = document.getElementById("tasks-banner");
 const selectedTag = document.getElementById("selected-tag");
 const notAdded = document.getElementById("not-added");
 const mobileMenuCloseButton = document.getElementById("close-button");
 const mobileMenu = document.getElementById("mobile-menu");
 const hamburgerButton = document.getElementById("hamburger-button");
+
+let taskId = 0;
 
 let selectedTagValue = null;
 let selectedTagPriority = 0;
@@ -47,22 +52,45 @@ function resetForm() {
 }
 
 function createTaskElement(
+  id,
   name,
   desc,
   tagText,
   tagColor,
   tagFontColor,
-  navarColor
+  navarColor,
+  isDone
 ) {
   const taskElement = document.createElement("li");
-  taskElement.className =
-    "relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]";
+  if (isDone) {
+    taskElement.className =
+      "relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]";
+    taskElement.innerHTML = `
+    <div id="task-${id}" class="absolute top-2 right-0 h-[88%] sm:h-[80%] w-1 rounded-tl-lg rounded-bl-lg" style="background-color: ${navarColor};"></div>
+    <img src="./assets/img/tabler_trash-x.svg" alt="bucket icon" class="absolute top-4 left-3 cursor-pointer" id="bucket"/>
+    <div class="flex items-start gap-3 flex-nowrap">
+      <input id="isDone" type="checkbox" class="mt-2 flex-shrink-0" checked/>
+      <div class="min-w-0 flex-1 overflow-hidden">
+        <div class="p-6">
+          <h2 class="text-base font-semibold whitespace-nowrap line-through">${name}</h2>
+        </div>
+      </div>
+    </div>
+  `;
 
-  taskElement.innerHTML = `
-    <div class="absolute top-2 right-0 h-[88%] sm:h-[80%] w-1 rounded-tl-lg rounded-bl-lg" style="background-color: ${navarColor};"></div>
+    const bucket = taskElement.querySelector("#bucket");
+    bucket.addEventListener("click", () => {
+      removeDoneTask(id);
+    });
+  } else {
+    taskElement.className =
+      "relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]";
+
+    taskElement.innerHTML = `
+    <div id="task-${id}" class="absolute top-2 right-0 h-[88%] sm:h-[80%] w-1 rounded-tl-lg rounded-bl-lg" style="background-color: ${navarColor};"></div>
     <img src="./assets/img/3noghte.svg" alt="3 points" class="absolute top-4 left-3 cursor-pointer" id="points"/>
     <div class="flex items-start gap-3 flex-nowrap">
-      <input type="checkbox" class="mt-2 flex-shrink-0" />
+      <input id="isDone" type="checkbox" class="mt-2 flex-shrink-0"/>
       <div class="min-w-0 flex-1 overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
           <h2 class="text-base font-semibold whitespace-nowrap">${name}</h2>
@@ -80,20 +108,30 @@ function createTaskElement(
     </div>
   `;
 
-  const points = taskElement.querySelector("#points");
-  const trashEdit = taskElement.querySelector("#trash-edit");
-  const deleteButton=taskElement.getElementsByClassName("delete-task");
+    const points = taskElement.querySelector("#points");
+    const trashEdit = taskElement.querySelector("#trash-edit");
+    const deleteButton = taskElement.querySelector("#delete-button");
+    const doneCheckbox = taskElement.querySelector("#isDone");
 
-  deleteButton.addEventListener("click",(e)=>{
-    e.target.parentElement.parentElement.parentElement.parentElement.removeChild(taskElement);
-  });
+    doneCheckbox.addEventListener("change", () => {
+        isDone = true;
+        doneTask(id);
+    });
 
-  points.addEventListener("click", () => {
-    const isHidden =
-      trashEdit.style.display === "none" || trashEdit.style.display === "";
-    trashEdit.style.display = isHidden ? "flex" : "none";
-  });
+    points.addEventListener("click", () => {
+      const isHidden =
+        trashEdit.style.display === "none" || trashEdit.style.display === "";
 
+      if (isHidden) {
+        trashEdit.style.display = "flex";
+        deleteButton.addEventListener("click", () => {
+          removeTask(id);
+        });
+      } else {
+        trashEdit.style.display = "none";
+      }
+    });
+  }
   return taskElement;
 }
 
@@ -121,14 +159,19 @@ function selectTag(value, bgColor, textColor, grade) {
 }
 
 const tasksArray = [];
+const doneTasksArray = [];
 
 function handleAddTask() {
+  const id = taskId;
   const name = taskName.value.trim();
   const desc = taskDescription.value.trim();
   const tagText = tagName.innerText;
   const tagColor = tagName.style.backgroundColor;
   const tagFontColor = tagName.style.color;
   const navarColor = navar.style.backgroundColor;
+  const isDone = false;
+
+  taskId++;
 
   if (!name || !desc || !tagText) {
     alert("لطفاً تمام فیلدها را پر کنید.");
@@ -136,6 +179,7 @@ function handleAddTask() {
   }
 
   const newTask = {
+    id,
     name,
     desc,
     tagText,
@@ -143,6 +187,7 @@ function handleAddTask() {
     tagFontColor,
     navarColor,
     priority: selectedTagPriority,
+    isDone,
   };
 
   tasksArray.push(newTask);
@@ -153,20 +198,82 @@ function handleAddTask() {
 
   resetForm();
 }
+
+function removeTask(id) {
+  let targetTask = tasksArray.find((task) => task.id === id);
+  tasksArray.pop(targetTask);
+  tasksArray.sort((a, b) => b.priority - a.priority);
+
+  renderTasks();
+
+  resetForm();
+}
+
+function removeDoneTask(id) {
+  let targetTask = doneTasksArray.find((task) => task.id === id);
+  doneTasksArray.pop(targetTask);
+  doneTasksArray.sort((a, b) => b.priority - a.priority);
+
+  renderTasks();
+
+  resetForm();
+}
+
+function doneTask(id) {
+  let done = tasksArray.find((task) => task.id === id);
+  let doneTask = tasksArray.pop(done);
+  doneTask.isDone = true;
+  doneTasksArray.push(doneTask);
+  tasksArray.sort((a, b) => b.priority - a.priority);
+  doneTasksArray.sort((a, b) => b.priority - a.priority);
+
+  renderTasks();
+
+  resetForm();
+}
+
 function renderTasks() {
   taskList.innerHTML = "";
+  taskDoneList.innerHTML = "";
+  if (tasksArray.length) {
+    tasksBanner.innerHTML = tasksArray.length + " تسک را باید انجام دهید.";
 
-  tasksArray.forEach((task) => {
-    const li = createTaskElement(
-      task.name,
-      task.desc,
-      task.tagText,
-      task.tagColor,
-      task.tagFontColor,
-      task.navarColor
-    );
-    taskList.appendChild(li);
-  });
+    tasksArray.forEach((task) => {
+      const li = createTaskElement(
+        task.id,
+        task.name,
+        task.desc,
+        task.tagText,
+        task.tagColor,
+        task.tagFontColor,
+        task.navarColor,
+        task.isDone
+      );
+      taskList.appendChild(li);
+    });
+  } else {
+    tasksBanner.innerHTML = "تسکی برای امروز نداری!";
+  }
+  if (doneTasksArray.length) {
+    taskDoneListBanner.style.display = "flex";
+    taskDoneListBanner.getElementsByTagName("h3").innerHTML =
+      doneTasksArray.length + " تسک انجام شده است.";
+    doneTasksArray.forEach((task) => {
+      const li = createTaskElement(
+        task.id,
+        task.name,
+        task.desc,
+        task.tagText,
+        task.tagColor,
+        task.tagFontColor,
+        task.navarColor,
+        task.isDone
+      );
+      taskDoneList.appendChild(li);
+    });
+  } else {
+    taskDoneListBanner.style.display = "none";
+  }
 }
 
 addTask.addEventListener("click", () => {
