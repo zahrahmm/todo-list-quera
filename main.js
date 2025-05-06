@@ -72,7 +72,7 @@ function createTaskElement(
       </div>
       <div class="flex-shrink-0 ml-auto mt-4">
         <div class="hidden border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2" id="trash-edit">
-          <img src="./assets/img/tabler_trash-x.svg" alt="trash" class="cursor-pointer delete-task"/>
+          <img src="./assets/img/tabler_trash-x.svg" alt="trash" class="cursor-pointer delete-task" id="delete-button"/>
           <div class="w-[1px] bg-[#ebedef]"></div>
           <img src="./assets/img/tabler_edit.svg" alt="edit" />
         </div>
@@ -82,6 +82,11 @@ function createTaskElement(
 
   const points = taskElement.querySelector("#points");
   const trashEdit = taskElement.querySelector("#trash-edit");
+  const deleteButton=taskElement.getElementsByClassName("delete-task");
+
+  deleteButton.addEventListener("click",(e)=>{
+    e.target.parentElement.parentElement.parentElement.parentElement.removeChild(taskElement);
+  });
 
   points.addEventListener("click", () => {
     const isHidden =
