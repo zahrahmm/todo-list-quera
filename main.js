@@ -24,10 +24,14 @@ const hamburgerButton = document.getElementById("hamburger-button");
 const taskCountElement = document.getElementById("task-count");
 const light = document.getElementsByClassName("light-mode");
 const dark = document.getElementsByClassName("dark-mode");
+const taskDoneList = document.getElementById("task-done-list");
+const taskDoneListBanner = document.getElementById("task-done-list-banner");
+const tasksBanner = document.getElementById("tasks-banner");
 
 let selectedTagValue = null;
 let selectedTagPriority = 0;
 let editingIndex = null;
+let taskId = 0;
 
 const tasksArray = [];
 
