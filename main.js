@@ -21,7 +21,6 @@ const notAdded = document.getElementById("not-added");
 const mobileMenuCloseButton = document.getElementById("close-button");
 const mobileMenu = document.getElementById("mobile-menu");
 const hamburgerButton = document.getElementById("hamburger-button");
-const taskCountElement = document.getElementById("task-count");
 const light = document.getElementsByClassName("light-mode");
 const dark = document.getElementsByClassName("dark-mode");
 const taskDoneList = document.getElementById("task-done-list");
@@ -34,6 +33,7 @@ let editingIndex = null;
 let taskId = 0;
 
 const tasksArray = [];
+const doneTasksArray = [];
 
 mobileMenuCloseButton.addEventListener("click", () => {
   mobileMenu.style.display = "none";
@@ -97,7 +97,16 @@ function selectTag(value, bgColor, textColor, grade) {
 }
 
 function createTaskElement(task, index) {
-  const { name, desc, tagText, tagColor, tagFontColor, navarColor } = task;
+  const {
+    id,
+    name,
+    desc,
+    tagText,
+    tagColor,
+    tagFontColor,
+    navarColor,
+    isDone,
+  } = task;
 
   const taskElement = document.createElement("li");
   taskElement.className =
@@ -105,44 +114,69 @@ function createTaskElement(task, index) {
 
   taskElement.innerHTML = `
     <div class="absolute top-2 right-0 h-[88%] sm:h-[80%] w-1 rounded-tl-lg rounded-bl-lg" style="background-color: ${navarColor};"></div>
-    <img src="./assets/img/3noghte.svg" alt="3 points" class="absolute top-4 left-3 cursor-pointer" id="points"/>
+    <img src="${
+      isDone ? "./assets/img/tabler_trash-x.svg" : "./assets/img/3noghte.svg"
+    }" class="absolute top-4 left-3 cursor-pointer" id="action"/>
     <div class="flex items-start gap-3 flex-nowrap">
-      <input type="checkbox" class="mt-2 flex-shrink-0" />
+      <input id="isDone" type="checkbox" class="mt-2 flex-shrink-0" ${
+        isDone ? "checked" : ""
+      }/>
       <div class="min-w-0 flex-1 overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
-          <h2 class="text-base font-semibold whitespace-nowrap">${name}</h2>
-          <div class="rounded-md px-2 py-1 text-sm whitespace-nowrap" style="background-color: ${tagColor}; color: ${tagFontColor};">${tagText}</div>
+          <h2 class="text-base font-semibold whitespace-nowrap ${
+            isDone ? "line-through" : ""
+          }">${name}</h2>
+          ${
+            !isDone
+              ? `<div class="rounded-md px-2 py-1 text-sm whitespace-nowrap" style="background-color: ${tagColor}; color: ${tagFontColor};">${tagText}</div>`
+              : ""
+          }
         </div>
         <p class="break-words text-light-gray-text mt-1">${desc}</p>
       </div>
       <div class="flex-shrink-0 ml-auto mt-4">
         <div class="hidden border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2" id="trash-edit">
-          <img src="./assets/img/tabler_trash-x.svg" alt="trash" class="cursor-pointer delete-task"/>
+          <img src="./assets/img/tabler_trash-x.svg" class="cursor-pointer delete-task"/>
           <div class="w-[1px] bg-[#ebedef]"></div>
-          <img src="./assets/img/tabler_edit.svg" alt="edit" class="cursor-pointer edit-task"/>
+          ${
+            !isDone
+              ? `<img src="./assets/img/tabler_edit.svg" class="cursor-pointer edit-task"/>`
+              : ""
+          }
         </div>
       </div>
     </div>
   `;
 
-  const points = taskElement.querySelector("#points");
+  const actionBtn = taskElement.querySelector("#action");
   const trashEdit = taskElement.querySelector("#trash-edit");
 
-  points.addEventListener("click", () => {
-    const isHidden =
-      trashEdit.style.display === "none" || trashEdit.style.display === "";
-    trashEdit.style.display = isHidden ? "flex" : "none";
+  actionBtn.addEventListener("click", () => {
+    trashEdit.style.display =
+      trashEdit.style.display === "flex" ? "none" : "flex";
   });
 
-  taskElement.querySelector(".edit-task").addEventListener("click", () => {
-    editTask(index);
-    taskElement.style.display = "none";
-  });
+  if (!isDone) {
+    taskElement.querySelector(".edit-task").addEventListener("click", () => {
+      editTask(index);
+    });
+    taskElement.querySelector("#isDone").addEventListener("change", () => {
+      doneTask(task.id);
+    });
+    taskElement.querySelector(".delete-task").addEventListener("click", () => {
+      removeTask(task.id);
+    });
+  } else {
+    taskElement.querySelector(".delete-task").addEventListener("click", () => {
+      removeDoneTask(task.id);
+    });
+  }
 
   return taskElement;
 }
 
 function handleAddTask() {
+  const id = taskId;
   const name = taskName.value.trim();
   const desc = taskDescription.value.trim();
   const tagText = tagName.innerText;
@@ -156,6 +190,7 @@ function handleAddTask() {
   }
 
   const task = {
+    id,
     name,
     desc,
     tagText,
@@ -163,12 +198,15 @@ function handleAddTask() {
     tagFontColor,
     navarColor,
     priority: selectedTagPriority,
+    isDone: false,
   };
 
   if (editingIndex !== null) {
     tasksArray[editingIndex] = task;
+    editingIndex = null;
   } else {
     tasksArray.push(task);
+    taskId++;
   }
 
   tasksArray.sort((a, b) => b.priority - a.priority);
@@ -177,28 +215,19 @@ function handleAddTask() {
   resetForm();
 }
 
-function renderTasks() {
-  taskList.innerHTML = "";
-  tasksArray.forEach((task, index) => {
-    const li = createTaskElement(task, index);
-    taskList.appendChild(li);
-  });
-  updateTaskCount();
-}
-
-function updateTaskCount() {
-  taskCountElement.innerText = `${tasksArray.length} تسک را باید انجام دهید .`;
-}
-
 function editTask(index) {
   const task = tasksArray[index];
+  editingIndex = index;
+
   taskInformation.style.display = "flex";
   emptyTask.style.display = "none";
   taskAdded.style.display = "none";
+  notAdded.style.display = "none";
   finalAdd.innerText = "ویرایش تسک";
 
   taskName.value = task.name;
   taskDescription.value = task.desc;
+
   tagName.innerText = task.tagText;
   tagName.style.backgroundColor = task.tagColor;
   tagName.style.color = task.tagFontColor;
@@ -210,11 +239,64 @@ function editTask(index) {
   selectedTag.innerText = task.tagText;
   selectedTag.style.backgroundColor = task.tagColor;
   selectedTag.style.color = task.tagFontColor;
-  selectedTag.className = "rounded-md w-fit pt-1 pb-1 pl-2 pr-2 mt-2";
   selectedTag.style.display = "inline-block";
 
-  editingIndex = index;
-  notAdded.style.display = "none";
+  const allTasks = taskList.querySelectorAll("li");
+  if (allTasks[index]) {
+    taskList.removeChild(allTasks[index]);
+  }
+}
+
+function removeTask(id) {
+  const index = tasksArray.findIndex((task) => task.id === id);
+  if (index !== -1) {
+    tasksArray.splice(index, 1);
+    renderTasks();
+  }
+}
+
+function removeDoneTask(id) {
+  const index = doneTasksArray.findIndex((task) => task.id === id);
+  if (index !== -1) {
+    doneTasksArray.splice(index, 1);
+    renderTasks();
+  }
+}
+
+function doneTask(id) {
+  const index = tasksArray.findIndex((task) => task.id === id);
+  if (index !== -1) {
+    const task = tasksArray.splice(index, 1)[0];
+    task.isDone = true;
+    doneTasksArray.push(task);
+    renderTasks();
+  }
+}
+
+function renderTasks() {
+  taskList.innerHTML = "";
+  taskDoneList.innerHTML = "";
+
+  if (tasksArray.length) {
+    tasksBanner.innerHTML = `${tasksArray.length} تسک را باید انجام دهید.`;
+    tasksArray.forEach((task, index) => {
+      taskList.appendChild(createTaskElement(task, index));
+    });
+  } else {
+    tasksBanner.innerHTML = "تسکی برای امروز نداری!";
+  }
+
+  if (doneTasksArray.length) {
+    taskDoneListBanner.style.display = "flex";
+    taskDoneListBanner.querySelector(
+      "h3"
+    ).innerHTML = `${doneTasksArray.length} تسک انجام شده است.`;
+    doneTasksArray.forEach((task, index) => {
+      taskDoneList.appendChild(createTaskElement(task, index));
+    });
+  } else {
+    taskDoneListBanner.style.display = "none";
+  }
 }
 
 addTask.addEventListener("click", () => {
@@ -231,16 +313,13 @@ tag.addEventListener("click", () => {
     : "./assets/img/tag-right.svg";
 });
 
-down.addEventListener("click", () => {
-  selectTag("پایین", "#c3fff1", "#11a483", 1);
-});
-middle.addEventListener("click", () => {
-  selectTag("متوسط", "#ffefd6", "#ffaf37", 2);
-});
-up.addEventListener("click", () => {
-  selectTag("بالا", "#ffe2db", "#ff5f37", 3);
-});
-
+down.addEventListener("click", () =>
+  selectTag("پایین", "#c3fff1", "#11a483", 1)
+);
+middle.addEventListener("click", () =>
+  selectTag("متوسط", "#ffefd6", "#ffaf37", 2)
+);
+up.addEventListener("click", () => selectTag("بالا", "#ffe2db", "#ff5f37", 3));
 finalAdd.addEventListener("click", handleAddTask);
 notAdded.addEventListener("click", () => {
   taskInformation.style.display = "none";
