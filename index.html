@@ -21,7 +21,12 @@
                 "gray-text": "#696969",
                 "border-dashed": "#cccccc",
               },
-              dark: {},
+              dark: {
+                primary:"#57a8ff",
+                "gray-text": "#848890",
+                "background-div":"#091120",
+                "border":"#3d3d3d",
+              },
             },
           },
         },
@@ -29,7 +34,7 @@
       };
     </script>
   </head>
-  <body class="bg-slate-50 ">
+  <body class="bg-slate-50 dark:bg-[#060c18]">
     <div class="sm:flex">
       <div
         id="mobile-menu"
@@ -347,100 +352,113 @@
         <div id="profile" class="mr-5 flex gap-2 sm:hidden">
           <img src="./assets/img/person-img.svg" alt="profile picture" />
           <div>
-            <h3 class="Vazirmatn font-extrabold text-lg">سلام، عفت</h3>
-            <p class="BYekan font-semibold text-sm text-neutral-400">
+            <h3 class="Vazirmatn font-extrabold text-lg dark:text-white">سلام، عفت</h3>
+            <p class="BYekan font-semibold text-sm text-neutral-400 dark:text-dark-gray-text">
               امروز، سه شنبه، 11 شهریور 1404
             </p>
           </div>
         </div>
         <div class="border-t m-5 sm:hidden"></div>
         <h2
-          class="Vazirmatn font-extrabold text-light-black-text pb-3 mr-5 sm:text-xl"
+          class="Vazirmatn font-extrabold text-light-black-text pb-3 mr-5 sm:text-xl dark:text-white"
         >
           تسک های امروز
         </h2>
         <h3
 
-          class="Vazirmatn text-xs text-light-gray-text pb-4 mr-5 sm:font-extrabold sm:text-sm"
+          class="Vazirmatn text-xs text-light-gray-text pb-4 mr-5 sm:font-extrabold sm:text-sm dark:text-dark-gray-text"
           id="tasks-banner">
      تسکی برای امروز نداری!
         </h3>
         <div
-          class="border rounded-xl border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-11/12 mr-4 bg-white"
+          class="border rounded-xl border-dashed border-light-border-dashed pt-4 pr-4 pb-4 w-11/12 mr-4 bg-white dark:bg-dark-background-div"
           id="add-task"
         >
-          <p class="font-semibold text-light-primary flex gap-4 items-center">
+          <p class="font-semibold text-light-primary flex gap-4 items-center dark:text-dark-primary">
             <span class="text-2xl">+</span>افزودن وظیفه جدید
           </p>
         </div>
         <img
-          class="w-[273px] h-[273px] mx-auto sm:w-[371px] sm:h-[307px] sm:mt-3"
+          class="w-[273px] h-[273px] mx-auto sm:w-[371px] sm:h-[307px] sm:mt-3 dark:hidden"
           src="./assets/img/nothing-task.svg"
           alt="empty task"
-          id="empty-task"
+          id="empty-task-light"
+        />
+        <img
+          class="w-[273px] h-[273px] mx-auto sm:w-[371px] sm:h-[307px] sm:mt-3 hidden dark:block"
+          src="./assets/img/Frame 1000005523.svg"
+          alt="empty task"
+          id="empty-task-dark"
         />
         <div
-          class="hidden bg-white pt-4 pr-4 pb-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] flex-col"
+          class="hidden bg-white pt-4 pr-4 pb-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] flex-col dark:bg-[#060c18] dark:border-dark-border"
           id="task-information"
         >
           <textarea
-            class="Vazirmatn placeholder:font-semibold placeholder:text-sm sm:placeholder:font-bold sm:placeholder:text-base resize-none"
+            class="Vazirmatn placeholder:font-semibold placeholder:text-sm sm:placeholder:font-bold sm:placeholder:text-base resize-none dark:bg-[#060c18] dark:text-white dark:placeholder:text-white"
             name="task-name"
             id="task-name"
             placeholder="نام تسک"
           ></textarea>
           <textarea
-            class="Markazi placeholder:text-xs sm:placeholder:font-semibold sm:placeholder:text-sm resize-none"
+            class="Markazi placeholder:text-xs sm:placeholder:font-semibold sm:placeholder:text-sm resize-none dark:bg-[#060c18] dark:text-dark-gray-text dark:placeholder:text-dark-gray-text"
             name="task-description"
             id="task-description"
             placeholder="توضیحات"
           ></textarea>
           <div class="flex gap-3">
             <button
-              class="Vazirmatn flex items-center border rounded-md w-fit pt-1 pb-1 pl-2 pr-2 gap-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] font-semibold text-xs sm:text-sm text-[#afaeb2] mt-2"
+              class="Vazirmatn flex items-center border rounded-md w-fit pt-1 pb-1 pl-2 pr-2 gap-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] font-semibold text-xs sm:text-sm text-[#afaeb2] mt-2 dark:text-white dark:border-dark-border"
               id="tag"
             >
               <img
-                class="w-4 h-4 sm:w-5 sm:h-5"
+                class="w-4 h-4 sm:w-5 sm:h-5 dark:hidden"
                 src="./assets/img/tag-right.svg"
                 alt="tag-right"
-                id="img-tag"
+                id="img-tag-light"
+              />
+              <img
+                class="w-4 h-4 sm:w-5 sm:h-5 hidden dark:block"
+                src="./assets/img/tag-right-dark.svg"
+                alt="tag-right"
+                id="img-tag-dark"
               />تگ ها
             </button>
             <button id="selected-tag"></button>
           </div>
           <div
-            class="gap-4 mt-5 p-3 border w-fit rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] hidden"
+            class="gap-4 mt-5 p-3 border w-fit rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] hidden dark:border-dark-border"
             id="down-middle-up"
           >
             <div
-              class="bg-[#c3fff1] text-[#11a483] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer"
+              class="bg-[#c3fff1] text-[#11a483] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer dark:bg-[#233332] dark:text-[#02e1a2]"
               id="down"
             >
               پایین
             </div>
-            <div class="w-[1px] bg-[#ebedef]"></div>
+            <div class="w-[1px] bg-[#ebedef] dark:bg-dark-border"></div>
             <div
-              class="bg-[#ffefd6] text-[#ffaf37] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer"
+              class="bg-[#ffefd6] text-[#ffaf37] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer dark:bg-[#302f2d] dark:text-[#ffaf37]"
               id="middle"
             >
               متوسط
             </div>
-            <div class="w-[1px] bg-[#ebedef]"></div>
+            <div class="w-[1px] bg-[#ebedef] dark:bg-dark-border"></div>
             <div
-              class="bg-[#ffe2db] text-[#ff5f37] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer"
+              class="bg-[#ffe2db] text-[#ff5f37] rounded-md pt-1 pb-1 pl-2 pr-2 cursor-pointer dark:bg-[#3d2327] dark:text-[#ff5f37]"
               id="up"
             >
               بالا
             </div>
           </div>
-          <div class="border-t mt-5"></div>
+          <div class="border-t mt-5 dark:border-dark-border"></div>
           <div class="flex justify-end gap-5 ml-4 mt-4">
-            <button class="rounded-md p-2 bg-[#f5f5f5]" id="not-added">
-              <img src="./assets/img/close.svg" alt="close" />
+            <button class="rounded-md p-2 bg-[#f5f5f5] dark:bg-[#002247]" id="not-added">
+              <img src="./assets/img/close.svg" alt="close" class="dark:hidden"/>
+              <img src="./assets/img/close-dark.svg" alt="close" class="hidden dark:block"/>
             </button>
             <button
-              class="BYekan font-semibold text-sm bg-light-primary text-white w-fit pt-2 pb-2 pl-3 pr-3 rounded-md"
+              class="BYekan font-semibold text-sm bg-light-primary text-white w-fit pt-2 pb-2 pl-3 pr-3 rounded-md dark:bg-[#002247] dark:text-white"
               id="final-add"
             >
               اضافه کردن تسک
@@ -451,7 +469,7 @@
         <ul id="task-list" class="my-8"></ul>
 
         <div
-          class="hidden relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]"
+          class="hidden relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] dark:bg-dark-background-div"
           id="task-added"
         >
           <div
@@ -463,6 +481,7 @@
             alt="3 points"
             class="absolute top-4 left-3"
             id="points"
+            data-type="menu-icon"
           />
           <div class="flex items-start gap-3 flex-nowrap">
             <input type="checkbox" class="mt-2 flex-shrink-0" />
@@ -491,12 +510,14 @@
                   src="./assets/img/tabler_trash-x.svg"
                   alt="trash"
                   class="cursor-pointer"
+                  data-type="trash"
                 />
                 <div class="w-[1px] bg-[#ebedef]"></div>
                 <img
                   src="./assets/img/tabler_edit.svg"
                   alt="edit"
                   class="cursor-pointer"
+                  data-type="edit"
                 />
               </div>
             </div>
@@ -504,12 +525,12 @@
         </div>
         <div id="task-done-list-banner" class="hidden flex-col">
           <h2
-          class="Vazirmatn font-extrabold text-light-black-text pb-3 mr-5 sm:text-xl"
+          class="Vazirmatn font-extrabold text-light-black-text pb-3 mr-5 sm:text-xl dark:text-white"
         >
           تسک های انجام شده
         </h2>
         <h3
-          class="Vazirmatn text-xs text-light-gray-text pb-4 mr-5 sm:font-extrabold sm:text-sm" id="tasks-done-banner"
+          class="Vazirmatn text-xs text-light-gray-text pb-4 mr-5 sm:font-extrabold sm:text-sm dark:text-dark-gray-text" id="tasks-done-banner"
         >
           1 تسک انجام شده است.
         </h3>

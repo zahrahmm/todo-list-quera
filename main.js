@@ -1,8 +1,10 @@
 const addTask = document.getElementById("add-task");
-const emptyTask = document.getElementById("empty-task");
+const emptyTaskLight = document.getElementById("empty-task-light");
+const emptyTaskDark = document.getElementById("empty-task-dark");
 const taskInformation = document.getElementById("task-information");
 const tag = document.getElementById("tag");
-const imgTag = document.getElementById("img-tag");
+const imgTagLight = document.getElementById("img-tag-light");
+const imgTagDark = document.getElementById("img-tag-dark");
 const downMiddleUp = document.getElementById("down-middle-up");
 const finalAdd = document.getElementById("final-add");
 const taskAdded = document.getElementById("task-added");
@@ -45,6 +47,7 @@ hamburgerButton.addEventListener("click", () => {
 
 const darkMode = () => {
   document.documentElement.classList.add("dark");
+  updateDark();
 };
 
 dark[0].addEventListener("click", darkMode);
@@ -52,6 +55,7 @@ dark[1].addEventListener("click", darkMode);
 
 const lightMode = () => {
   document.documentElement.classList.remove("dark");
+  updateDark();
 };
 
 light[0].addEventListener("click", lightMode);
@@ -68,12 +72,26 @@ function resetForm() {
   selectedTagValue = null;
   selectedTagPriority = 0;
   downMiddleUp.style.display = "none";
-  imgTag.src = "./assets/img/tag-right.svg";
+  imgTagLight.src = "./assets/img/tag-right.svg";
+  imgTagDark.src = "./assets/img/tag-right-dark.svg";
   editingIndex = null;
   finalAdd.innerText = "اضافه کردن تسک";
 }
 
 function selectTag(value, bgColor, textColor, grade) {
+  const isDark = document.documentElement.classList.contains("dark");
+
+  if (value === "پایین") {
+    bgColor = isDark ? "#233332" : "#c3fff1";
+    textColor = isDark ? "#02e1a2" : "#11a483";
+  } else if (value === "متوسط") {
+    bgColor = isDark ? "#302f2d" : "#ffefd6";
+    textColor = "#ffaf37";
+  } else if (value === "بالا") {
+    bgColor = isDark ? "#3d2327" : "#ffe2db";
+    textColor = "#ff5f37";
+  }
+
   if (selectedTagValue === value) {
     selectedTag.style.display = "none";
     selectedTagValue = null;
@@ -108,24 +126,26 @@ function createTaskElement(task, index) {
     isDone,
   } = task;
 
+  const isDark = document.documentElement.classList.contains("dark");
+
   const taskElement = document.createElement("li");
   taskElement.className =
-    "relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)]";
+    "relative bg-white p-4 w-11/12 mr-4 mt-5 rounded-xl border shadow-[0_4px_58.5px_0_rgba(0,0,0,0.06)] dark:bg-dark-background-div";
 
   taskElement.innerHTML = `
     <div class="absolute top-2 right-0 h-[88%] sm:h-[80%] w-1 rounded-tl-lg rounded-bl-lg" style="background-color: ${navarColor};"></div>
     <img src="${
       isDone ? "./assets/img/tabler_trash-x.svg" : "./assets/img/3noghte.svg"
-    }" class="absolute top-4 left-3 cursor-pointer" id="action"/>
+    }" class="absolute top-4 left-3 cursor-pointer" id="action" data-type="menu-icon"/>
     <div class="flex items-start gap-3 flex-nowrap">
       <input id="isDone" type="checkbox" class="mt-2 flex-shrink-0" ${
         isDone ? "checked" : ""
       }/>
       <div class="min-w-0 flex-1 overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
-          <h2 class="text-base font-semibold whitespace-nowrap ${
-            isDone ? "line-through" : ""
-          }">${name}</h2>
+         <h2 class="text-base font-semibold whitespace-nowrap ${
+           isDone ? "line-through" : ""
+         } ${isDark ? "text-white" : "text-black"}">${name}</h2>
           ${
             !isDone
               ? `<div class="rounded-md px-2 py-1 text-sm whitespace-nowrap" style="background-color: ${tagColor}; color: ${tagFontColor};">${tagText}</div>`
@@ -136,11 +156,11 @@ function createTaskElement(task, index) {
       </div>
       <div class="flex-shrink-0 ml-auto mt-4">
         <div class="hidden border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2" id="trash-edit">
-          <img src="./assets/img/tabler_trash-x.svg" class="cursor-pointer delete-task"/>
+          <img src="./assets/img/tabler_trash-x.svg" class="cursor-pointer delete-task"  data-type="trash"/>
           <div class="w-[1px] bg-[#ebedef]"></div>
           ${
             !isDone
-              ? `<img src="./assets/img/tabler_edit.svg" class="cursor-pointer edit-task"/>`
+              ? `<img src="./assets/img/tabler_edit.svg" class="cursor-pointer edit-task" data-type="edit"/>`
               : ""
           }
         </div>
@@ -220,7 +240,8 @@ function editTask(index) {
   editingIndex = index;
 
   taskInformation.style.display = "flex";
-  emptyTask.style.display = "none";
+  emptyTaskLight.style.display = "none";
+  emptyTaskDark.style.display = "none";
   taskAdded.style.display = "none";
   notAdded.style.display = "none";
   finalAdd.innerText = "ویرایش تسک";
@@ -297,10 +318,12 @@ function renderTasks() {
   } else {
     taskDoneListBanner.style.display = "none";
   }
+  updateDark();
 }
 
 addTask.addEventListener("click", () => {
-  emptyTask.style.display = "none";
+  emptyTaskLight.style.display = "none";
+  emptyTaskDark.style.display = "none";
   taskInformation.style.display = "flex";
 });
 
@@ -308,9 +331,12 @@ tag.addEventListener("click", () => {
   const isHidden =
     downMiddleUp.style.display === "none" || downMiddleUp.style.display === "";
   downMiddleUp.style.display = isHidden ? "flex" : "none";
-  imgTag.src = isHidden
+  imgTagLight.src = isHidden
     ? "./assets/img/tag-open.svg"
     : "./assets/img/tag-right.svg";
+  imgTagDark.src = isHidden
+    ? "./assets/img/tag-open-dark.svg"
+    : "./assets/img/tag-right-dark.svg";
 });
 
 down.addEventListener("click", () =>
@@ -320,8 +346,34 @@ middle.addEventListener("click", () =>
   selectTag("متوسط", "#ffefd6", "#ffaf37", 2)
 );
 up.addEventListener("click", () => selectTag("بالا", "#ffe2db", "#ff5f37", 3));
+
 finalAdd.addEventListener("click", handleAddTask);
 notAdded.addEventListener("click", () => {
   taskInformation.style.display = "none";
   resetForm();
 });
+
+function updateDark() {
+  const isDark = document.documentElement.classList.contains("dark");
+
+  document.querySelectorAll('[data-type="trash"]').forEach((img) => {
+    img.src = isDark
+      ? "./assets/img/Vector.svg"
+      : "./assets/img/tabler_trash-x.svg";
+  });
+
+  document.querySelectorAll('[data-type="edit"]').forEach((img) => {
+    img.src = isDark
+      ? "./assets/img/Group.svg"
+      : "./assets/img/tabler_edit.svg";
+  });
+
+  document.querySelectorAll('[data-type="menu-icon"]').forEach((img) => {
+    const isDone = img.src.includes("trash-x.svg");
+    img.src = isDone
+      ? "./assets/img/tabler_trash-x.svg"
+      : isDark
+      ? "./assets/img/3noghte-dark.svg"
+      : "./assets/img/3noghte.svg";
+  });
+}
