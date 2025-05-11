@@ -12,6 +12,7 @@ const down = document.getElementById("down");
 const middle = document.getElementById("middle");
 const up = document.getElementById("up");
 const navar = document.getElementById("navar");
+const mobileBar = document.getElementById("mobile-bar");
 const tagName = document.getElementById("tag-name");
 const taskName = document.getElementById("task-name");
 const taskDescription = document.getElementById("task-description");
@@ -115,16 +116,8 @@ function selectTag(value, bgColor, textColor, grade) {
 }
 
 function createTaskElement(task, index) {
-  const {
-    id,
-    name,
-    desc,
-    tagText,
-    tagColor,
-    tagFontColor,
-    navarColor,
-    isDone,
-  } = task;
+  const { name, desc, tagText, tagColor, tagFontColor, navarColor, isDone } =
+    task;
 
   const isDark = document.documentElement.classList.contains("dark");
 
@@ -355,6 +348,17 @@ notAdded.addEventListener("click", () => {
 
 function updateDark() {
   const isDark = document.documentElement.classList.contains("dark");
+
+  if (isDark) {
+    dark[0].getElementsByTagName("img")[0].src = "./assets/img/white-moon.svg";
+    dark[1].getElementsByTagName("img")[0].src = "./assets/img/white-moon.svg";
+    mobileBar.getElementsByTagName("img")[0].src="./assets/img/menu-dark.svg";
+  } else {
+    dark[0].getElementsByTagName("img")[0].src = "./assets/img/dark-switch.svg";
+    dark[1].getElementsByTagName("img")[0].src = "./assets/img/dark-switch.svg";
+    mobileBar
+    .getElementsByTagName("img")[0].src="./assets/img/menu.svg";
+  }
 
   document.querySelectorAll('[data-type="trash"]').forEach((img) => {
     img.src = isDark
