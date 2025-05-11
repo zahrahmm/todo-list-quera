@@ -38,6 +38,10 @@ let taskId = 0;
 const tasksArray = [];
 const doneTasksArray = [];
 
+document.addEventListener("DOMContentLoaded", () => {
+  renderTasks();
+});
+
 mobileMenuCloseButton.addEventListener("click", () => {
   mobileMenu.style.display = "none";
 });
@@ -145,7 +149,9 @@ function createTaskElement(task, index) {
               : ""
           }
         </div>
-        <p class="break-words text-light-gray-text mt-1">${desc}</p>
+        <p class="break-words text-light-gray-text mt-1 ${
+          isDone ? "hidden" : "block"
+        }">${desc}</p>
       </div>
       <div class="flex-shrink-0 ml-auto mt-4">
         <div class="hidden border rounded-lg shadow-[0_12px_24px_0_rgba(20,20,25,0.06)] p-1 gap-2" id="trash-edit">
@@ -169,12 +175,12 @@ function createTaskElement(task, index) {
       trashEdit.style.display === "flex" ? "none" : "flex";
   });
 
+  taskElement.querySelector("#isDone").addEventListener("change", () => {
+    doneTask(task.id);
+  });
   if (!isDone) {
     taskElement.querySelector(".edit-task").addEventListener("click", () => {
       editTask(index);
-    });
-    taskElement.querySelector("#isDone").addEventListener("change", () => {
-      doneTask(task.id);
     });
     taskElement.querySelector(".delete-task").addEventListener("click", () => {
       removeTask(task.id);
@@ -226,6 +232,7 @@ function handleAddTask() {
 
   renderTasks();
   resetForm();
+  saveToLocalStorage();
 }
 
 function editTask(index) {
@@ -267,6 +274,7 @@ function removeTask(id) {
     tasksArray.splice(index, 1);
     renderTasks();
   }
+  saveToLocalStorage();
 }
 
 function removeDoneTask(id) {
@@ -275,16 +283,27 @@ function removeDoneTask(id) {
     doneTasksArray.splice(index, 1);
     renderTasks();
   }
+  saveToLocalStorage();
 }
 
 function doneTask(id) {
-  const index = tasksArray.findIndex((task) => task.id === id);
+  let task;
+  let index = tasksArray.findIndex((t) => t.id === id);
   if (index !== -1) {
-    const task = tasksArray.splice(index, 1)[0];
+    task = tasksArray.splice(index, 1)[0];
     task.isDone = true;
     doneTasksArray.push(task);
-    renderTasks();
+  } else {
+    index = doneTasksArray.findIndex((t) => t.id === id);
+    if (index !== -1) {
+      task = doneTasksArray.splice(index, 1)[0];
+      task.isDone = false;
+      tasksArray.push(task);
+      tasksArray.sort((a, b) => b.priority - a.priority);
+    }
   }
+  renderTasks();
+  saveToLocalStorage();
 }
 
 function renderTasks() {
@@ -296,8 +315,17 @@ function renderTasks() {
     tasksArray.forEach((task, index) => {
       taskList.appendChild(createTaskElement(task, index));
     });
+    emptyTaskLight.style.display = "none";
+    emptyTaskDark.style.display = "none";
   } else {
     tasksBanner.innerHTML = "تسکی برای امروز نداری!";
+    if (document.documentElement.classList.contains("dark")) {
+      emptyTaskDark.style.display = "block";
+      emptyTaskLight.style.display = "none";
+    } else {
+      emptyTaskLight.style.display = "block";
+      emptyTaskDark.style.display = "none";
+    }
   }
 
   if (doneTasksArray.length) {
@@ -311,6 +339,7 @@ function renderTasks() {
   } else {
     taskDoneListBanner.style.display = "none";
   }
+
   updateDark();
 }
 
@@ -352,12 +381,11 @@ function updateDark() {
   if (isDark) {
     dark[0].getElementsByTagName("img")[0].src = "./assets/img/white-moon.svg";
     dark[1].getElementsByTagName("img")[0].src = "./assets/img/white-moon.svg";
-    mobileBar.getElementsByTagName("img")[0].src="./assets/img/menu-dark.svg";
+    mobileBar.getElementsByTagName("img")[0].src = "./assets/img/menu-dark.svg";
   } else {
     dark[0].getElementsByTagName("img")[0].src = "./assets/img/dark-switch.svg";
     dark[1].getElementsByTagName("img")[0].src = "./assets/img/dark-switch.svg";
-    mobileBar
-    .getElementsByTagName("img")[0].src="./assets/img/menu.svg";
+    mobileBar.getElementsByTagName("img")[0].src = "./assets/img/menu.svg";
   }
 
   document.querySelectorAll('[data-type="trash"]').forEach((img) => {
@@ -381,3 +409,28 @@ function updateDark() {
       : "./assets/img/3noghte.svg";
   });
 }
+
+function saveToLocalStorage() {
+  localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+  localStorage.setItem("doneTasksArray", JSON.stringify(doneTasksArray));
+  localStorage.setItem("taskId", taskId.toString());
+}
+
+function loadFromLocalStorage() {
+  const savedTasks = localStorage.getItem("tasksArray");
+  const savedDoneTasks = localStorage.getItem("doneTasksArray");
+  const savedTaskId = localStorage.getItem("taskId");
+
+  if (savedTasks) {
+    tasksArray.push(...JSON.parse(savedTasks));
+  }
+  if (savedDoneTasks) {
+    doneTasksArray.push(...JSON.parse(savedDoneTasks));
+  }
+  if (savedTaskId) {
+    taskId = parseInt(savedTaskId, 10);
+  }
+  renderTasks();
+}
+
+loadFromLocalStorage();
