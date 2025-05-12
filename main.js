@@ -23,6 +23,7 @@ const notAdded = document.getElementById("not-added");
 const mobileMenuCloseButton = document.getElementById("close-button");
 const mobileMenu = document.getElementById("mobile-menu");
 const hamburgerButton = document.getElementById("hamburger-button");
+const hamburgerButtonDark = document.getElementById("hamburger-button-dark");
 const light = document.getElementsByClassName("light-mode");
 const dark = document.getElementsByClassName("dark-mode");
 const taskDoneList = document.getElementById("task-done-list");
@@ -46,6 +47,9 @@ mobileMenuCloseButton.addEventListener("click", () => {
 });
 
 hamburgerButton.addEventListener("click", () => {
+  mobileMenu.style.display = "block";
+});
+hamburgerButtonDark.addEventListener("click", () => {
   mobileMenu.style.display = "block";
 });
 
