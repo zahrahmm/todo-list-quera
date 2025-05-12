@@ -12,7 +12,6 @@ const down = document.getElementById("down");
 const middle = document.getElementById("middle");
 const up = document.getElementById("up");
 const navar = document.getElementById("navar");
-const mobileBar = document.getElementById("mobile-bar");
 const tagName = document.getElementById("tag-name");
 const taskName = document.getElementById("task-name");
 const taskDescription = document.getElementById("task-description");
@@ -379,13 +378,9 @@ function updateDark() {
   const isDark = document.documentElement.classList.contains("dark");
 
   if (isDark) {
-    dark[0].getElementsByTagName("img")[0].src = "./assets/img/white-moon.svg";
-    dark[1].getElementsByTagName("img")[0].src = "./assets/img/white-moon.svg";
-    mobileBar.getElementsByTagName("img")[0].src = "./assets/img/menu-dark.svg";
+    mobileMenuCloseButton.src = "./assets/img/close-dark.svg";
   } else {
-    dark[0].getElementsByTagName("img")[0].src = "./assets/img/dark-switch.svg";
-    dark[1].getElementsByTagName("img")[0].src = "./assets/img/dark-switch.svg";
-    mobileBar.getElementsByTagName("img")[0].src = "./assets/img/menu.svg";
+    mobileMenuCloseButton.src = "./assets/img/close.svg";
   }
 
   document.querySelectorAll('[data-type="trash"]').forEach((img) => {

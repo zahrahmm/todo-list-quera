@@ -44,7 +44,7 @@
           <p class="w-2/4 font-bold dark:text-slate-100">کوئرا لیست</p>
           <img
             id="close-button"
-            class="cursor-pointer dark:bg-slate-100 rounded-lg"
+            class="cursor-pointer"
             src="./assets/img/close.svg"
             alt="close button"
           />
@@ -57,7 +57,8 @@
               class="flex rounded-md shadow-none w-9/10 p-3 m-auto bg-white hover:bg-blue-50 hover:text-blue-500 dark:bg-[#060c18] dark:hover:bg-[#041933]
               dark:hover:text-blue-500"
             >
-              <img class="mx-3" src="./assets/img/home-2.svg" alt="home icon" />
+              <img class="mx-3 dark:hidden" src="./assets/img/home.svg" alt="home icon" />
+              <img class="mx-3 hidden dark:block" src="./assets/img/home-dark.svg" alt="home icon" />
               <a class="px-2 Vazirmatn font-semibold dark:text-white">خانه</a>
             </div>
           </li>
@@ -68,8 +69,13 @@
               dark:hover:text-blue-500"
             >
               <img
-                class="mx-3"
-                src="./assets/img/task-square.svg"
+                class="mx-3 dark:hidden"
+                src="./assets/img/task.svg"
+                alt="tasks icon"
+              />
+              <img
+                class="mx-3 hidden dark:block"
+                src="./assets/img/task-dark.svg"
                 alt="tasks icon"
               />
               <a class="px-2 Vazirmatn dark:text-white">تسک ها</a>
@@ -82,8 +88,13 @@
               dark:hover:text-blue-500"
             >
               <img
-                class="mx-3"
+                class="mx-3 dark:hidden"
                 src="./assets/img/calendar.svg"
+                alt="calendar icon"
+              />
+              <img
+                class="mx-3 hidden dark:block"
+                src="./assets/img/calendar-dark.svg"
                 alt="calendar icon"
               />
               <a class="px-2 Vazirmatn dark:text-white">تقویم</a>
@@ -96,8 +107,13 @@
               dark:hover:text-blue-500"
             >
               <img
-                class="mx-3"
-                src="./assets/img/arrange-square-2.svg"
+                class="mx-3 dark:hidden"
+                src="./assets/img/reports.svg"
+                alt="reports icon"
+              />
+              <img
+                class="mx-3 hidden dark:block"
+                src="./assets/img/reports-dark.svg"
                 alt="reports icon"
               />
               <a class="px-2 Vazirmatn dark:text-white">گزارشات</a>
@@ -110,8 +126,13 @@
               dark:hover:text-blue-500"
             >
               <img
-                class="mx-3"
+                class="mx-3 dark:hidden"
                 src="./assets/img/setting.svg"
+                alt="setting icon"
+              />
+              <img
+                class="mx-3 hidden dark:block"
+                src="./assets/img/setting-dark.svg"
                 alt="setting icon"
               />
               <a class="px-2 Vazirmatn dark:text-white">تنظیمات</a>
@@ -124,8 +145,13 @@
               dark:hover:text-blue-500"
             >
               <img
-                class="mx-3"
-                src="./assets/img/24-support.svg"
+                class="mx-3 dark:hidden"
+                src="./assets/img/support.svg"
+                alt="support icon"
+              />
+              <img
+                class="mx-3 hidden dark:block"
+                src="./assets/img/support.svg"
                 alt="support icon"
               />
               <a class="px-2 Vazirmatn dark:text-white">پشتیبانی</a>
@@ -138,10 +164,15 @@
               dark:hover:text-blue-500"
             >
               <img
-                class="mx-3"
+                class="mx-3 dark:hidden"
                 src="./assets/img/profile.svg"
                 alt="profile icon"
               />
+              <img
+              class="mx-3 hidden dark:block"
+              src="./assets/img/profile-dark.svg"
+              alt="profile icon"
+            />
               <a class="px-2 Vazirmatn dark:text-white">پروفایل</a>
             </div>
           </li>
@@ -166,7 +197,8 @@
               id="dark"
               class="flex gap-2 rounded-lg bg-[#F7F7F7] justify-around py-2 px-4 items-center w-1/2 self-center cursor-pointer dark-mode dark:bg-[#002247]"
             >
-              <img src="./assets/img/dark-switch.svg" alt="dark switch" />
+              <img src="./assets/img/moon.svg" alt="dark switch" class="dark:hidden"/>
+              <img src="./assets/img/moon-dark.svg" alt="dark switch" class="hidden dark:block"/>
               <a
                 class="block px-1 pb-1 Markazi font-semibold text-center align-middle dark:text-white"
               >
@@ -180,8 +212,9 @@
             class="m-auto w-full mb-8"
           />
           <div class="flex mb-4">
-            <img src="./assets/img/logout.svg" alt="logout icon" />
-            <a class="px-2 Markazi font-semibold">خروج</a>
+            <img src="./assets/img/logout.svg" alt="logout icon" class="dark:hidden"/>
+            <img src="./assets/img/logout-dark.svg" alt="logout icon" class="hidden dark:block"/>
+            <a class="px-2 Markazi font-semibold dark:text-white">خروج</a>
           </div>
         </div>
       </div>
@@ -195,8 +228,14 @@
         >
           <img
             id="hamburger-button"
-            class="w-6 h-6 cursor-pointer"
+            class="w-6 h-6 cursor-pointer dark:hidden"
             src="./assets/img/menu.svg"
+            alt="hamburgerMenu"
+          />
+          <img
+            id="hamburger-button"
+            class="w-6 h-6 cursor-pointer hidden dark:block"
+            src="./assets/img/menu-dark.svg"
             alt="hamburgerMenu"
           />
           <h2 class="Vazirmatn font-bold text-center dark:bg-[#091120] dark:text-white">کوئرا لیست</h2>
@@ -230,8 +269,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
-                  src="./assets/img/home-2.svg"
+                  class="mx-3 dark:hidden"
+                  src="./assets/img/home.svg"
+                  alt="home icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/home-dark.svg"
                   alt="home icon"
                 />
                 <a class="px-2 Vazirmatn font-semibold dark:text-white">خانه</a>
@@ -244,8 +288,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
-                  src="./assets/img/task-square.svg"
+                  class="mx-3 dark:hidden"
+                  src="./assets/img/task.svg"
+                  alt="tasks icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/task-dark.svg"
                   alt="tasks icon"
                 />
                 <a class="px-2 Vazirmatn dark:text-white">تسک ها</a>
@@ -258,8 +307,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
+                  class="mx-3 dark:hidden"
                   src="./assets/img/calendar.svg"
+                  alt="calendar icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/calendar-dark.svg"
                   alt="calendar icon"
                 />
                 <a class="px-2 Vazirmatn dark:text-white">تقویم</a>
@@ -272,8 +326,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
-                  src="./assets/img/arrange-square-2.svg"
+                  class="mx-3 dark:hidden"
+                  src="./assets/img/reports.svg"
+                  alt="reports icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/reports-dark.svg"
                   alt="reports icon"
                 />
                 <a class="px-2 Vazirmatn dark:text-white">گزارشات</a>
@@ -286,8 +345,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
+                  class="mx-3 dark:hidden"
                   src="./assets/img/setting.svg"
+                  alt="setting icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/setting-dark.svg"
                   alt="setting icon"
                 />
                 <a class="px-2 Vazirmatn dark:text-white">تنظیمات</a>
@@ -300,8 +364,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
-                  src="./assets/img/24-support.svg"
+                  class="mx-3 dark:hidden"
+                  src="./assets/img/support.svg"
+                  alt="support icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/support-dark.svg"
                   alt="support icon"
                 />
                 <a class="px-2 Vazirmatn dark:text-white">پشتیبانی</a>
@@ -314,8 +383,13 @@
                 dark:hover:text-blue-500"
               >
                 <img
-                  class="mx-3"
+                  class="mx-3 dark:hidden"
                   src="./assets/img/profile.svg"
+                  alt="profile icon"
+                />
+                <img
+                  class="mx-3 hidden dark:block"
+                  src="./assets/img/profile-dark.svg"
                   alt="profile icon"
                 />
                 <a class="px-2 Vazirmatn dark:text-white">پروفایل</a>
@@ -342,7 +416,8 @@
               id="dark"
               class="flex gap-2 rounded-lg bg-[#F7F7F7] justify-around py-2 px-4 items-center w-1/2 self-center cursor-pointer dark-mode dark:bg-[#002247]"
             >
-              <img src="./assets/img/dark-switch.svg" alt="dark switch" />
+              <img src="./assets/img/moon.svg" alt="dark switch" class="dark:hidden"/>
+              <img src="./assets/img/moon-dark.svg" alt="dark switch" class="hidden dark:block"/>
               <a
                 class="block px-1 pb-1 Markazi font-semibold text-center align-middle dark:text-white"
               >
@@ -356,8 +431,9 @@
               class="m-auto w-full mb-8"
             />
             <div id="logout" class="flex mb-4">
-              <img src="./assets/img/logout.svg" alt="logout icon" />
-              <a class="px-2 Markazi font-semibold">خروج</a>
+              <img src="./assets/img/logout.svg" alt="logout icon" class="dark:hidden"/>
+              <img src="./assets/img/logout-dark.svg" alt="logout icon" class="hidden dark:block"/>
+              <a class="px-2 Markazi font-semibold dark:text-white">خروج</a>
             </div>
           </div>
         </div>
