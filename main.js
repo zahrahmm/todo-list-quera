@@ -119,10 +119,25 @@ function selectTag(value, bgColor, textColor, grade) {
 }
 
 function createTaskElement(task, index) {
-  const { name, desc, tagText, tagColor, tagFontColor, navarColor, isDone } =
-    task;
+  let { name, desc, tagText, isDone } = task;
 
   const isDark = document.documentElement.classList.contains("dark");
+
+  let tagColor, tagFontColor, navarColor;
+
+  if (tagText === "پایین") {
+    tagColor = isDark ? "#233332" : "#c3fff1";
+    tagFontColor = isDark ? "#02e1a2" : "#11a483";
+    navarColor = isDark ? "#02e1a2" : "#11a483";
+  } else if (tagText === "متوسط") {
+    tagColor = isDark ? "#302f2d" : "#ffefd6";
+    tagFontColor = "#ffaf37";
+    navarColor = "#ffaf37";
+  } else if (tagText === "بالا") {
+    tagColor = isDark ? "#3d2327" : "#ffe2db";
+    tagFontColor = "#ff5f37";
+    navarColor = "#ff5f37";
+  }
 
   const taskElement = document.createElement("li");
   taskElement.className =
@@ -198,9 +213,6 @@ function handleAddTask() {
   const name = taskName.value.trim();
   const desc = taskDescription.value.trim();
   const tagText = tagName.innerText;
-  const tagColor = tagName.style.backgroundColor;
-  const tagFontColor = tagName.style.color;
-  const navarColor = navar.style.backgroundColor;
 
   if (!name || !desc || !tagText) {
     alert("لطفاً تمام فیلدها را پر کنید.");
@@ -212,9 +224,6 @@ function handleAddTask() {
     name,
     desc,
     tagText,
-    tagColor,
-    tagFontColor,
-    navarColor,
     priority: selectedTagPriority,
     isDone: false,
   };
