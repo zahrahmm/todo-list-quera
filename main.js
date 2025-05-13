@@ -160,7 +160,7 @@ function createTaskElement(task, index) {
         <div class="flex flex-wrap items-center gap-2">
          <h2 class="text-base font-semibold whitespace-nowrap ${
            isDone ? "line-through" : ""
-         } ${isDark ? "text-white" : "text-black"}">${name}</h2>
+         } text-black dark:text-white">${name}</h2>
           ${
             !isDone
               ? `<div class="rounded-md px-2 py-1 text-sm whitespace-nowrap" style="background-color: ${tagColor}; color: ${tagFontColor};">${tagText}</div>`
